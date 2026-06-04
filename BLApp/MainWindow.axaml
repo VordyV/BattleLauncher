@@ -16,7 +16,10 @@
             <TextBlock Foreground="#fcffff">Battle Launcher</TextBlock>
         </c:Window.TitleContent>
         
-        <ContentControl Name="MainContent"/>
+        <Grid>
+            <ContentControl Name="MainContent"/>
+            <u:OverlayDialogHost HostId="main"/>
+        </Grid>
         
     </c:Window>
 </Window>
