@@ -13,7 +13,8 @@ public class Configurator
 
     protected JsonNode? RootNode;
     protected Timer Timer;
-    protected bool Lock = false;
+    protected bool LockWrite = false;
+    protected bool LockRead = true;
 
     public Configurator(string path, string defaultData = "{}")
     {
@@ -27,19 +28,19 @@ public class Configurator
 
     public void Save()
     {
-        this.Lock = true;
+        this.LockWrite = true;
         if (this.Timer.Enabled) this.Timer.Stop();
         this.Timer.Start();
     }
     
     public async Task Read(bool createMissing = false)
     {
+        this.LockRead = true;
         if (createMissing && !File.Exists(this.Path)) await File.WriteAllTextAsync(this.Path, this.DefaultData);
         
         string? rawData = await File.ReadAllTextAsync(this.Path);
-        JsonNode? node = JsonNode.Parse(rawData);
-
-        this.RootNode = node ?? JsonNode.Parse(this.DefaultData);
+        this.RootNode = rawData.Trim() != "" ? JsonNode.Parse(rawData) : JsonNode.Parse(this.DefaultData);
+        this.LockRead = false;
     }
 
     public void AddSection(string name)
@@ -59,7 +60,7 @@ public class Configurator
         File.Replace(this.PathTemp, this.Path, null);
         await File.WriteAllTextAsync(this.PathBackup, data);
 
-        this.Lock = false;
+        this.LockWrite = false;
     }
 
     public bool HasSection(string name) => this.RootNode?.AsObject().ContainsKey(name) ?? false;
@@ -136,7 +137,15 @@ public class Configurator
 
     public async Task WaitSafeMoment()
     {
-        while (this.Lock)
+        while (this.LockWrite)
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(10));
+        }
+    }
+    
+    public async Task WaitReadiness()
+    {
+        while (this.LockRead)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(10));
         }
