@@ -14,12 +14,12 @@ public partial class App : Application
     {
         this.Launcher = new Launcher(pathConfig: "bnconfig.registry");
         
-        this.Launcher.RegisterGame(gameId: "bf2142", name: "Battlefield 2142", shortName: "BF2142");
+        this.Launcher.RegisterGame(gameId: "bf2142", name: "Battlefield 2142", shortName: "BF2142", determinants: new []{"bf2142.exe"});
         
         AvaloniaXamlLoader.Load(this);
     }
 
-    public override async void OnFrameworkInitializationCompleted()
+    public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
