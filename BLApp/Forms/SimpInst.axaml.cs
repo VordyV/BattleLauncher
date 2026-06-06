@@ -50,6 +50,9 @@ public partial class SimpInst : UserControl
         }
         
         this.Game.AddGameRegistry(path);
+        await this.Game.GenerateDefaultClient();
+        this.Game.SetReferenceClient(Launcher.UnknownClientId);
+        this.Game.SetCurrentClient(Launcher.UnknownClientId);
         if (DataContext is IDialogContext ctx) ctx.Close();
     }
 }
