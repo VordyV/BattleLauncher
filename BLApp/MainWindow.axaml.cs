@@ -42,7 +42,7 @@ public partial class MainWindow : Window
 
     private async Task OnLoaded()
     {
-        await this.Launcher.Configurator.Read(createMissing: true);
+        await this.Launcher.Registry.Read(createMissing: true);
     }
 
     private void Window_OnClickHide(object? sender, RoutedEventArgs e)
