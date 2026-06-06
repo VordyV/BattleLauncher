@@ -42,9 +42,28 @@ public partial class MainView : View
 
     protected async Task OnLoaded()
     {
-        await this.Game.CheckInstall();
+        if (await this.Game.CheckInstall() && !this.Game.CheckPathInstall()) Console.WriteLine("Game not found at the installed path");
         Console.WriteLine(this.Game.Status);
+        if (this.Game.IsInstall)
+        { 
+            // TODO: Fix the program crash if there is no 'client' option in the config section
+            this.Game.GetCurrentClient();
+            await this.UpdateClients(await this.Game.GetClients());
+        }
         //await this.UpdateButtonMA(this.Game.Status);
+    }
+
+    protected async Task UpdateClients(ClientData[] clients)
+    {
+        this.ComboBoxClients.Items.Clear();
+        short i = -1;
+        foreach (var client in clients)
+        {
+            this.ComboBoxClients.Items.Add(new ComboBoxItem() {Content = client.Name, Name = $"ComboBoxItemClients_{client.ID}"});
+            i++;
+        }
+
+        this.ComboBoxClients.SelectedIndex = i;
     }
 
     protected async Task UpdateButtonMA(GameStatus status)
