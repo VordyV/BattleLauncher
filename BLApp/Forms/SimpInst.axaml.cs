@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
@@ -50,9 +51,29 @@ public partial class SimpInst : UserControl
         }
         
         this.Game.AddGameRegistry(path);
-        await this.Game.GenerateDefaultClient();
-        this.Game.SetReferenceClient(Launcher.UnknownClientId);
-        this.Game.SetCurrentClient(Launcher.UnknownClientId);
+
+        try
+        {
+            ClientData client = await this.Game.GenerateDefaultClient();
+            
+            this.Game.SetReferenceClient(Launcher.UnknownClientId);
+            this.Game.SetCurrentClient(Launcher.UnknownClientId);
+
+            Dictionary<string, string> files = new();
+            foreach (var file in client.Files)
+            {
+                files.Add(file, Launcher.UnknownClientId);
+            }
+        
+            await this.Game.SetStateSnapshot(new StateSnapshot() {Files = files});
+        }
+        catch (Exception exception)
+        {
+            this.ShowError(exception.Message);
+            Console.WriteLine(exception.StackTrace);
+            return;
+        }
+
         if (DataContext is IDialogContext ctx) ctx.Close();
     }
 }
