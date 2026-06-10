@@ -73,7 +73,7 @@
                     <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal">
                         <StackPanel Orientation="Horizontal" Spacing="10">
                             <TextBlock Text="Платформа:" VerticalAlignment="Center"/>
-                            <ComboBox Name="ComboBoxClients" SelectedIndex="0" VerticalAlignment="Center" Background="Transparent">
+                            <ComboBox Name="ComboBoxClients"  SelectionChanged="ComboBoxClients_OnSelectionChanged" SelectedIndex="0" VerticalAlignment="Center" Background="Transparent">
                                 <ComboBoxItem Content="Stellar"/>
                             </ComboBox>
                             <TextBlock Text="Мод:" VerticalAlignment="Center"/>
