@@ -7,6 +7,9 @@ using BL;
 using BLApp.Controls;
 using BLApp.Views;
 using Window = Avalonia.Controls.Window;
+using Notification = Ursa.Controls.Notification;
+using WindowNotificationManager = Ursa.Controls.WindowNotificationManager;
+using Avalonia.Controls.Notifications;
 
 namespace BLApp;
 
@@ -15,6 +18,7 @@ public partial class MainWindow : Window
     protected bool IsMaximum = false;
     protected Launcher Launcher;
     protected ViewPresenter<Launcher> ViewPresenter;
+    protected WindowNotificationManager NotificationManager;
     
     public MainWindow()
     {
@@ -34,6 +38,9 @@ public partial class MainWindow : Window
         
         InitializeComponent();
         this.DataContext = this;
+        this.NotificationManager = new WindowNotificationManager(this);
+        this.NotificationManager.Position = NotificationPosition.BottomRight;
+        Notify.Init(this.NotificationManager);
         
         this.MainContent.Content = this.ViewPresenter.Content;
         

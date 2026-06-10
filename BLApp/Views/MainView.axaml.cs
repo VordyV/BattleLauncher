@@ -15,6 +15,7 @@ public partial class MainView : View
 {
     protected ViewPresenter<Launcher> Pages;
     protected Game Game;
+    protected bool isLoaded = false;
     
     public MainView()
     {
@@ -50,20 +51,23 @@ public partial class MainView : View
             this.Game.GetCurrentClient();
             await this.UpdateClients(await this.Game.GetClients());
         }
+        this.isLoaded = true;
         //await this.UpdateButtonMA(this.Game.Status);
     }
 
     protected async Task UpdateClients(ClientData[] clients)
     {
         this.ComboBoxClients.Items.Clear();
-        short i = -1;
+        byte i = 0;
+        byte currentClientId = 0; 
         foreach (var client in clients)
         {
             this.ComboBoxClients.Items.Add(new ComboBoxItem() {Content = client.Name, Name = $"ComboBoxItemClients_{client.ID}"});
+            if (this.Game.Client == client.ID) currentClientId = i;
             i++;
         }
 
-        this.ComboBoxClients.SelectedIndex = i;
+        this.ComboBoxClients.SelectedIndex = currentClientId;
     }
 
     protected async Task UpdateButtonMA(GameStatus status)
@@ -120,5 +124,25 @@ public partial class MainView : View
                 break;
             }
         }
+    }
+
+    private async void ComboBoxClients_OnSelectionChanged(object? sender, SelectionChangedEventArgs e)
+    {
+        if (this.isLoaded && this.Game.IsInstall && this.ComboBoxClients != null && this.ComboBoxClients.SelectedItem is ComboBoxItem item)
+        {
+            // TODO: fix the inability to change the client if referenceClient, client and something else are missing from the registry
+            try
+            {
+                string clientId = item.Name.Split('_')[1];
+                Console.WriteLine(clientId);
+                await this.Game.ChangeClientGame(clientId);
+                this.Game.SetCurrentClient(clientId);
+            }
+            catch (Exception exception)
+            {
+                Notify.ShowError("Client has not been changed", exception.Message);
+            }
+        }
+        //
     }
 }
