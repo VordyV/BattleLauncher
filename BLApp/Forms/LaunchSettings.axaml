@@ -1,0 +1,19 @@
+﻿<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="450"
+             xmlns:c="clr-namespace:BLApp.Controls"
+             x:Class="BLApp.Forms.LaunchSettings">
+    <c:Form Title="Launch settings" SubTitle="Game launch parameter management" Width="540">
+        <c:Form.Content>
+            <ContentControl Name="MainContent"/>
+        </c:Form.Content>
+        <c:Form.ActionContent>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button Name="ButtonCancel" Click="ButtonCancel_OnClick" Content="Cancel"/>
+                <Button Name="ButtonSave" Click="ButtonSave_OnClick" Content="Save" Classes="Primary" Theme="{StaticResource SolidButton}"/>
+            </StackPanel>
+        </c:Form.ActionContent>
+    </c:Form>
+</UserControl>
