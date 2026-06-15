@@ -13,13 +13,14 @@ public class Game
     public string ReferenceClient { get; protected set; }
     public string Client { get; protected set; }
     public Dictionary<string, ClientData> Clients { get; protected set; } = new();
+    public Dictionary<string, ILaunchParam> LaunchParams { get; protected set; } = new();
 
     public event Func<GameStatus, Task> OnChangeStatus; 
 
     protected Launcher Launcher;
     protected Configurator Registry;
 
-    public Game(Launcher launcher, Configurator registry, string id, string name, string shortName, string[] determinants)
+    public Game(Launcher launcher, Configurator registry, string id, string name, string shortName, string[] determinants, ILaunchParam[] launchParams)
     {
         this.Launcher = launcher;
         this.Registry = registry;
@@ -27,6 +28,11 @@ public class Game
         this.Name = name;
         this.ShortName = shortName;
         this.Determinants = determinants;
+
+        foreach (var param in launchParams)
+        {
+            this.LaunchParams.Add(param.Id, param);
+        }
     }
 
     public async Task<bool> CheckInstall()
@@ -186,5 +192,40 @@ public class Game
     public async Task<StateSnapshot?> GetStateSnapshot()
     {
         return await this.Launcher.GetStateSnapshot(this.Id);
+    }
+    
+    public string[] BuildLaunchParams(Dictionary<string, object> parameters)
+    {
+        List<string> args = new();
+        ILaunchParam? launchParam;
+        foreach (var param in parameters)
+        {
+            if (this.LaunchParams.TryGetValue(param.Key, out launchParam))
+            {
+                if (launchParam is LaunchParamStr p)
+                {
+                    foreach (var item in p.BuildArgs((string)param.Value))
+                    {
+                        args.Add(item);
+                    }
+                    
+                } else if (launchParam is LaunchParamBool p2)
+                {
+                    foreach (var item in p2.BuildArgs((bool)param.Value))
+                    {
+                        args.Add(item);
+                    }
+                }
+                else if (launchParam is LaunchParamDict p3)
+                {
+                    foreach (var item in p3.BuildArgs((string)param.Value))
+                    {
+                        args.Add(item);
+                    }
+                }
+            } else throw new LaunchParamNotFoundException($"Launch parameter '{param.Key}' not registered");
+        }
+
+        return args.ToArray();
     }
 }
