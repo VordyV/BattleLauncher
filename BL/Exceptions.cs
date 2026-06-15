@@ -8,3 +8,4 @@ public class GamePathNotSetException : LauncherException { public GamePathNotSet
 public class GamePathNotFoundException : LauncherException { public GamePathNotFoundException(string text) : base(text) {} }
 public class GameRefClientNotSetException : LauncherException { public GameRefClientNotSetException(string text) : base(text) {} }
 public class GameNotSetRegistryException : LauncherException { public GameNotSetRegistryException(string text) : base(text) {} }
+public class LaunchParamNotFoundException : LauncherException { public LaunchParamNotFoundException(string text) : base(text) {} }
