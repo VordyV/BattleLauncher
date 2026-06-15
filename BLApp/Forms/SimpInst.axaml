@@ -5,31 +5,22 @@
              mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="450"
              Background="Transparent"
              xmlns:u="https://irihi.tech/ursa"
+             xmlns:c="clr-namespace:BLApp.Controls"
              Width="540"
              x:Class="BLApp.Forms.SimpInst">
-    <Grid RowDefinitions="Auto, *, Auto" Width="540">
-        <Border Grid.Row="0" Background="Black" Opacity="0.35" Height="80"/>
-        <Border Grid.Row="0" VerticalAlignment="Center" Height="80" Padding="40 0">
-            <StackPanel VerticalAlignment="Center" Spacing="8">
-                <TextBlock Text="Simple installation" Classes="H5" Theme="{StaticResource TitleTextBlock}"/>
-                <TextBlock Text="Adding a path to an already installed game" Foreground="#B1B1B1"/>
-            </StackPanel>
-        </Border>
-        
-        <Border Grid.Row="1" VerticalAlignment="Top" Padding="40 50">
+    <c:Form Title="Simple installation" SubTitle="Adding a path to an already installed game" Width="540">
+        <c:Form.Content>
             <StackPanel Spacing="8">
                 <TextBlock Text="Game directory" Foreground="#B1B1B1"/>
                 <u:PathPicker Name="PathPickerGamePath" Title="OVERVIEW" UsePickerType="OpenFolder"/>
                 <TextBlock Name="TextBlockError" Text="" Foreground="#f54e4e" IsVisible="False"/>
             </StackPanel>
-        </Border>
-        
-        <Border Grid.Row="2" Background="Black" Opacity="0.35" Height="80"/>
-        <Border Grid.Row="2" VerticalAlignment="Center" Height="80" Padding="40 0">
+        </c:Form.Content>
+        <c:Form.ActionContent>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
                 <Button Name="ButtonCancel" Click="ButtonCancel_OnClick" Content="Cancel"/>
                 <Button Name="ButtonSave" Click="ButtonSave_OnClick" Content="Save" Classes="Primary" Theme="{StaticResource SolidButton}"/>
             </StackPanel>
-        </Border>
-    </Grid>
+        </c:Form.ActionContent>
+    </c:Form>
 </UserControl>
