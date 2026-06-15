@@ -23,9 +23,9 @@ public class Launcher
         this.Registry = new Configurator(pathConfig);
     }
 
-    public void RegisterGame(string gameId, string name, string shortName, string[] determinants)
+    public void RegisterGame(string gameId, string name, string shortName, string[] determinants, ILaunchParam[] launchParams)
     {
-        if (!this.Games.TryAdd(gameId, new Game(launcher: this, registry: this.Registry, id: gameId, name: name, shortName: shortName, determinants: determinants))) 
+        if (!this.Games.TryAdd(gameId, new Game(launcher: this, registry: this.Registry, id: gameId, name: name, shortName: shortName, determinants: determinants, launchParams: launchParams))) 
             throw new GameAlreadyRegException($"A game with this ID '{gameId}' is already registered");
     }
 
