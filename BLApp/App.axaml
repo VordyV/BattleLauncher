@@ -9,5 +9,6 @@
         <semi:SemiTheme Locale="zh-CN"/>
         <semi:UrsaSemiTheme Locale="zh-CN"/>
         <StyleInclude Source="Controls/Window.axaml"/>
+        <StyleInclude Source="Controls/Form.axaml"/>
     </Application.Styles>
 </Application>
