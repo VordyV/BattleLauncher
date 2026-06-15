@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
@@ -110,7 +111,9 @@ public partial class MainView : View
             }
             case GameStatus.NotRunning:
             {
-                
+                var context = new DialogContext();
+                await OverlayDialog.ShowCustomModal<SimpInst>( new SimpInst(this.Game) {DataContext = context}, context, hostId: "main", new OverlayDialogOptions() {CanResize = false});
+                await this.Game.CheckInstall();
                 break;
             }
             case GameStatus.Running:
@@ -144,5 +147,11 @@ public partial class MainView : View
             }
         }
         //
+    }
+
+    private async void ButtonParams_OnClick(object? sender, RoutedEventArgs e)
+    {
+        var context = new DialogContext();
+        await OverlayDialog.ShowCustomModal<LaunchSettings>( new LaunchSettings(this.Game) {DataContext = context}, context, hostId: "main", new OverlayDialogOptions() {CanResize = false});
     }
 }

@@ -80,6 +80,7 @@
                             <ComboBox SelectedIndex="0" VerticalAlignment="Center" Background="Transparent">
                                 <ComboBoxItem Content="Vanila"/>
                             </ComboBox>
+                            <Button Name="ButtonParams" Click="ButtonParams_OnClick" Content="Параметры" Background="Transparent" Foreground="AliceBlue" VerticalAlignment="Center"/>
                         </StackPanel>
                     </StackPanel>
                     
