@@ -48,22 +48,22 @@
                                 </StackPanel>
                             </Border>
                             
-                            <Border Padding="0 0 20 10">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="15">
-                                    <Button Background="Transparent" Name="PART_ButtonWinHide" Padding="0">
+                            <Border Padding="0 0 18 10">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                                    <Button Background="Transparent" Name="PART_ButtonWinHide" Padding="0" MinHeight="0" Height="20" Width="20">
                                         <Button.Content>
                                             <Image Source="/Assets/iconhide.png" Stretch="None"/>
                                         </Button.Content>
                                     </Button>
-                                    <Button Background="Transparent" Name="PART_ButtonWinMinMax" Padding="0">
+                                    <Button Background="Transparent" Name="PART_ButtonWinMinMax" Padding="0" MinHeight="0" Height="20" Width="20">
                                         <Button.Content>
                                             <StackPanel>
-                                                <Image Name="ImageIconMax" Source="/Assets/iconmax.png" IsVisible="False" Stretch="None"/>
-                                                <Image Name="ImageIconMin" Source="/Assets/iconmin.png" IsVisible="True" Stretch="None"/>
+                                                <Image Name="PART_ImageIconMax" Source="/Assets/iconmax.png" IsVisible="False" Stretch="None"/>
+                                                <Image Name="PART_ImageIconMin" Source="/Assets/iconmin.png" IsVisible="True" Stretch="None"/>
                                             </StackPanel>
                                         </Button.Content>
                                     </Button>
-                                    <Button Background="Transparent" Name="PART_ButtonWinClose" Padding="0">
+                                    <Button Background="Transparent" Name="PART_ButtonWinClose" Padding="0 0" MinHeight="0" Height="20" Width="20">
                                         <Button.Content>
                                             <Image Source="/Assets/iconclose.png" Stretch="None"/>
                                         </Button.Content>

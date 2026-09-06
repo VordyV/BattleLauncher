@@ -12,7 +12,7 @@
         WindowDecorations="BorderOnly"
         ExtendClientAreaToDecorationsHint="True"
         Title="NBLApp">
-    <c:Window ClickHide="Window_OnClickHide" ClickMinMax="Window_OnClickMinMax" ClickClose="Window_OnClickClose">
+    <c:Window Name="Window" ClickHide="Window_OnClickHide" ClickMinMax="Window_OnClickMinMax" ClickClose="Window_OnClickClose">
         <c:Window.TitleContent>
             <TextBlock Foreground="#fcffff">Battle Launcher</TextBlock>
         </c:Window.TitleContent>

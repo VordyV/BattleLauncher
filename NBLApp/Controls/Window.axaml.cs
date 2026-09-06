@@ -8,6 +8,9 @@ namespace BLApp.Controls;
 
 public class Window : ContentControl
 {
+    private Image? _imageIconMax;
+    private Image? _imageIconMin;
+    
     public static readonly RoutedEvent<RoutedEventArgs> ClickHideEvent =
         RoutedEvent.Register<Window, RoutedEventArgs>(
             nameof(ClickHide),
@@ -57,5 +60,22 @@ public class Window : ContentControl
         if (e.NameScope.Find<Button>("PART_ButtonWinHide") is { } button1) button1.Click += (_, _) => RaiseEvent(new RoutedEventArgs(ClickHideEvent));
         if (e.NameScope.Find<Button>("PART_ButtonWinMinMax") is { } button2) button2.Click += (_, _) => RaiseEvent(new RoutedEventArgs(ClickMinMaxEvent));
         if (e.NameScope.Find<Button>("PART_ButtonWinClose") is { } button3) button3.Click += (_, _) => RaiseEvent(new RoutedEventArgs(ClickCloseEvent));
+
+        this._imageIconMax = e.NameScope.Find<Image>("PART_ImageIconMax");
+        this._imageIconMin = e.NameScope.Find<Image>("PART_ImageIconMin");
+    }
+
+    public void SetMinimizedState()
+    {
+        if (this._imageIconMax is null || this._imageIconMin is null) return;
+        this._imageIconMax.IsVisible = false;
+        this._imageIconMin.IsVisible = true;
+    }
+    
+    public void SetMaximizedState()
+    {
+        if (this._imageIconMax is null || this._imageIconMin is null) return;
+        this._imageIconMax.IsVisible = true;
+        this._imageIconMin.IsVisible = false;
     }
 }

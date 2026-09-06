@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Input;
@@ -45,6 +46,33 @@ public partial class MainWindow : Window
         this.MainContent.Content = this.ViewPresenter.Content;
         
         this.ViewPresenter.LoadView("main", this.Launcher.GetGames()[0]);
+
+        this.PropertyChanged += async (s, e) =>
+        {
+            if (e.Property == WindowStateProperty)
+            {
+                var state = (WindowState)e.NewValue!;
+                
+                switch (WindowState)
+                {
+                    case WindowState.Maximized:
+                    {
+                        this.Window.SetMaximizedState();
+                        break;
+                    }
+                    case WindowState.Minimized:
+                    {
+                        this.Window.SetMinimizedState();
+                        break;
+                    }
+                    case WindowState.Normal:
+                    {
+                        this.Window.SetMinimizedState();
+                        break;
+                    }
+                }
+            }
+        };
     }
 
     private async Task OnLoaded()
@@ -62,14 +90,12 @@ public partial class MainWindow : Window
         if (!this.IsMaximum)
         {
             this.WindowState = WindowState.Maximized;
-            //this.ImageIconMin.IsVisible = false;
-            //this.ImageIconMax.IsVisible = true;
+            this.Window.SetMaximizedState();
         }
         else
         {
             this.WindowState = WindowState.Normal;
-            //this.ImageIconMin.IsVisible = true;
-            //this.ImageIconMax.IsVisible = false;
+            this.Window.SetMinimizedState();
         }
         
         this.IsMaximum = !this.IsMaximum;
