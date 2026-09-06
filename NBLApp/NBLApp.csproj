@@ -5,6 +5,7 @@
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <RootNamespace>BLApp</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -26,6 +27,6 @@
         <AvaloniaResource Include="Assets\**" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\BL\BL.csproj" />
+      <ProjectReference Include="..\NBL\NBL.csproj" />
     </ItemGroup>
 </Project>

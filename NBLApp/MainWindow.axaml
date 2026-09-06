@@ -10,7 +10,7 @@
         x:Class="BLApp.MainWindow"
         WindowDecorations="BorderOnly"
         ExtendClientAreaToDecorationsHint="True"
-        Title="BLApp">
+        Title="NBLApp">
     <c:Window ClickHide="Window_OnClickHide" ClickMinMax="Window_OnClickMinMax" ClickClose="Window_OnClickClose">
         <c:Window.TitleContent>
             <TextBlock Foreground="#fcffff">Battle Launcher</TextBlock>
